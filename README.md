@@ -1,17 +1,12 @@
 <!-- -*- coding:utf-8-unix -*- -->
 
-# AtCoder Rust Base (`ja`)
+# Techful Rust Base (WIP)
 
-このリポジトリには[AtCoder][atcoder]コンテスト（競技プログラミング）にRustで参加するためのCargoパッケージテンプレートが用意されています。
+このリポジトリには[TechFUL][techful]（競技プログラミング）にRustで参加するためのCargoパッケージテンプレートが用意されています。
 パッケージは[cargo-generate][cargo-generate-crate]で作成します。
 
-**この`README.md`では`ja`テンプレートの内容について説明します**。
-他のテンプレートについては[こちら][list-of-templates]をご覧ください。
-
-[atcoder]: https://atcoder.jp
+[techful]: https://techful-programming.com
 [cargo-generate-crate]: https://crates.io/crates/cargo-generate
-[list-of-templates]: https://github.com/rust-lang-ja/atcoder-rust-base/blob/master/README.md#用意されているテンプレート
-
 
 ## `ja`テンプレートの内容
 
