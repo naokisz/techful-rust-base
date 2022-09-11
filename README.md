@@ -8,6 +8,8 @@
 
 ## 使い方
 
+現時点linux環境のみ対応しています。
+
 ### 必要なクレートのインストール
 
 * [cargo-generate](https://crates.io/crates/cargo-generate)
@@ -50,19 +52,19 @@ $ cargo generate --name sample-problem \
    - TechFUL上でテストすることもできますが、手元でテストする事もできます。
    - [`tests/sample_inputs.rs`](./tests/sample_inputs.rs)ファイルには、ひな型となるテストケースが用意されています。
    - TechFULの問題文に書かれているサンプル入出力をこのファイルに書き写します。
-     これにより`cargo +1.39.0 test`でプログラムの動作が確認できるようになります（後述）。
+     これにより`cargo test`でプログラムの動作が確認できるようになります（後述）。
 
 1. テストケースの実行
    - 以下のコマンドでテストケースを実行し、テストにパスすることを確認します。
 
       ```console
-      $ cargo +1.39.0 test -j 1
+      $ cargo test -j 1
       ```
 
       **実行例**
 
       ```console
-      $ cargo +1.39.0 test -j 1
+      $ cargo test -j 1
           ...
           Finished dev [unoptimized + debuginfo] target(s) in 25.31s
            Running target/debug/deps/main-aae3efe8c7e14c29
