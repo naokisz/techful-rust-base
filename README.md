@@ -1,92 +1,38 @@
 <!-- -*- coding:utf-8-unix -*- -->
 
-# Techful Rust Base (WIP)
+# TechFUL Rust Base
 
-このリポジトリには[TechFUL][techful]（競技プログラミング）にRustで参加するためのCargoパッケージテンプレートが用意されています。
-パッケージは[cargo-generate][cargo-generate-crate]で作成します。
-
-[techful]: https://techful-programming.com
-[cargo-generate-crate]: https://crates.io/crates/cargo-generate
-
-## `ja`テンプレートの内容
-
-- AtCoder 2019年言語アップデート後の環境向け
-- Rust 1.42.0
-  - `rustup`でインストールされていることを前提にしている
-
-**TODO** もう少し詳しく書く
+[TechFUL](https://techful-programming.com/)でrustの問題を解く時の自分用[cargo-generate](https://crates.io/crates/cargo-generate)テンプレートです。  
+[Atcoder Rust Baseのjaブランチ](https://github.com/rust-lang-ja/atcoder-rust-base/tree/ja)を元にして作成しました。
 
 
-## 使いかた
+## 使い方
 
-### 準備：cargo-generateのインストール
+### 必要なクレートのインストール
 
-以下のコマンドでcargo-generateをインストールします。
-
-#### Linux (Ubuntu 18.04)
-
-```console
-$ sudo apt install libssl-dev pkg-config
-$ cargo install cargo-generate
-```
-
-#### Windows 10 MSVC
-
-```console
-$ cargo install cargo-generate
-```
-
-#### macOS Mojave 10.14
-
-cargo-generateが依存しているopenss-sysクレートは、macOSに元から入っているOpenSSLライブラリのバージョンに対応していません。
-（OpenSSLのバージョンが低すぎる）　
-そのOpenSSLライブラリを使おうとすると以下のようなエラーになります。
-
-```console
-error failed to run custom build command for `openssl-sys v0.9.47`
-...
-
-It looks like you're compiling on macOS, where the system contains a version of
-OpenSSL 0.9.8. This crate no longer supports OpenSSL 0.9.8.
-
-As a consumer of this crate, you can fix this error by using Homebrew to
-install the `openssl` package, ...
-```
-
-エラーメッセージのおすすめにしたがって、[Homebrew][homebrew]で新しいバージョンのOpenSSLライブラリをインストールします。
-
-```console
-$ brew install openssl
-```
-
-cargo-generateをインストールします。
-
-```console
-$ cargo install cargo-generate
-```
-
-[homebrew]: https://brew.sh/
-
+* [cargo-generate](https://crates.io/crates/cargo-generate)
+* [cargo-equip](https://crates.io/crates/cargo-equip)
+* [cargo-make](https://crates.io/crates/cargo-make)
 
 ### パッケージの生成
 
 `cargo generate`コマンドでパッケージを生成します。
 
 ```console
-$ cargo generate --name abc086c \
-    --git https://github.com/rust-lang-ja/atcoder-rust-base \
-    --branch ja
+$ cargo generate --name sample-problem \
+    --git https://github.com/naokisz/techful-rust-base \
+    --branch main
 ```
 
-- `--name`: これから作成するパッケージの名前。好きな名前が付けられる。例：`abc086c`
-- `--branch`: このテンプレートリポジトリのブランチ名。`ja`テンプレートを使うなら`ja`を指定する
+- `--name`: これから作成するパッケージの名前。好きな名前が付けられる。例：`sample-problem`
+- `--branch`: このテンプレートリポジトリのブランチ名。
 
 
 ### 解答となるプログラムの作成
 
 1. 使用するクレートの選択
-   - [`Cargo.toml`][cargo-toml-file]ファイルを開き`[dependencies]`セクションに書かれているクレートのなかで必要なものがあればコメントを外します。
-   - 注意：AtCoderの環境では、これら以外のクレートは使用できません。またバージョンも固定されています。
+   - デフォルトで[proconio\_for\_1\_39\_0](https://github.com/naokisz/proconio-rs-for-1.39.0)のみを有効化しています。
+   - 手元でテストをする場合はdev-dependenciesの中のクレートをアンコメントしてください。
 
 1. 使用するクレートのドキュメントの生成
    - 必須ではありませんが、以下のコマンドで依存クレートのドキュメントをビルドし、Webブラウザで開いておくと便利でしょう。
@@ -97,25 +43,26 @@ $ cargo generate --name abc086c \
       $ cargo doc          # ドキュメントのビルドのみ行う
       ```
 
-1. テストケースの作成
-   - [`tests/sample_inputs.rs`](./tests/sample_inputs.rs)ファイルには、ひな型となるテストケースが用意されています。
-   - AtCoderの問題文に書かれているサンプル入出力をこのファイルに書き写します。
-     これにより`cargo test`でプログラムの動作が確認できるようになります（後述）。
-
 1. プログラムの作成
    - [`src/main.rs`](./src/main.rs)に解答となるプログラムを書きます。
+
+1. テストケースの作成
+   - TechFUL上でテストすることもできますが、手元でテストする事もできます。
+   - [`tests/sample_inputs.rs`](./tests/sample_inputs.rs)ファイルには、ひな型となるテストケースが用意されています。
+   - TechFULの問題文に書かれているサンプル入出力をこのファイルに書き写します。
+     これにより`cargo +1.39.0 test`でプログラムの動作が確認できるようになります（後述）。
 
 1. テストケースの実行
    - 以下のコマンドでテストケースを実行し、テストにパスすることを確認します。
 
       ```console
-      $ cargo test -j 1
+      $ cargo +1.39.0 test -j 1
       ```
 
       **実行例**
 
       ```console
-      $ cargo test -j 1
+      $ cargo +1.39.0 test -j 1
           ...
           Finished dev [unoptimized + debuginfo] target(s) in 25.31s
            Running target/debug/deps/main-aae3efe8c7e14c29
@@ -145,17 +92,18 @@ $ cargo generate --name abc086c \
 
 
 1. プログラムの提出
-   - プログラムが完成したら`src/main.rs`の内容をAtCoderに提出します。
+   - プログラムが完成した時は、`cargo make submit`でcargo-equipの結果がクリップボードにコピーします。
+   - クリップボードの内容をTechFULの提出欄にペーストして提出します。
      `AC`を目指して頑張ってください。
-
-[cargo-toml-file]: ./Cargo.toml
 
 
 ## 使用可能なクレート
 
-AtCoderの環境では、[`Cargo.toml`][cargo-toml-file]にあらかじめ書かれているクレートのみが使用できます。
-それら以外のクレートを追加すると、手元ではコンパイルできてもAtCoderの環境ではコンパイルエラーになりますので注意してください。
-またクレートのバージョンも固定されており、変更できません。
+下記の条件に対応しているクレートのみ使用できます．
+
+* cargo-equipで1ファイルにできる
+* rust 1.39.0に対応している
+* 2015 editionに対応している
 
 
 ## ライセンス / License
