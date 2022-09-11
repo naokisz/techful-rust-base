@@ -1,7 +1,15 @@
-[tasks.test]
+[tasks.check]
+description = "Code check using rust 1.39.0"
 command = "cargo"
-args = ["test"]
+args = ["+1.39.0", "check"]
 
 [tasks.equip]
-command = "cargo"
-args = ["equip", "--remove", "docs", "--remove", "comments", "--minify", "libs"]
+description = "Make crates to equiped single text and copy to clipboard."
+script = ['''
+#!/usr/bin/env bash
+cargo equip --remove docs --remove comments --minify libs | xsel -b
+echo -e "\nCode copied. Plsease paste and submit your code."
+''']
+
+[tasks.submit]
+dependencies = ["check", "equip"]
